@@ -1,0 +1,30 @@
+[debug] [2022-06-16T02:36:52.120Z] ----------------------------------------------------------------------
+[debug] [2022-06-16T02:36:52.122Z] Command:       /usr/local/Cellar/node/16.1.0/bin/node /usr/local/bin/firebase deploy
+[debug] [2022-06-16T02:36:52.122Z] CLI Version:   9.23.0
+[debug] [2022-06-16T02:36:52.122Z] Platform:      darwin
+[debug] [2022-06-16T02:36:52.122Z] Node Version:  v16.1.0
+[debug] [2022-06-16T02:36:52.123Z] Time:          Wed Jun 15 2022 21:36:52 GMT-0500 (Central Daylight Time)
+[debug] [2022-06-16T02:36:52.123Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-06-16T02:36:52.175Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-06-16T02:36:52.175Z] > authorizing via signed-in user (jacobwaller98@gmail.com)
+[debug] [2022-06-16T02:36:52.175Z] [iam] checking project beer-bot-309823 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2022-06-16T02:36:52.177Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/beer-bot-309823:testIamPermissions  
+ {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2022-06-16T02:36:52.303Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Thu, 16 Jun 2022 02:36:52 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=41","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2022-06-16T02:36:52.305Z] >>> HTTP REQUEST POST https://iam.googleapis.com/v1/projects/beer-bot-309823/serviceAccounts/beer-bot-309823@appspot.gserviceaccount.com:testIamPermissions  
+ {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2022-06-16T02:36:52.401Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Thu, 16 Jun 2022 02:36:52 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2022-06-16T02:36:52.403Z] > refreshing access token with scopes: []
+[debug] [2022-06-16T02:36:52.403Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2022-06-16T02:36:52.506Z] <<< HTTP RESPONSE 200 {"cache-control":"no-cache, no-store, max-age=0, must-revalidate","expires":"Mon, 01 Jan 1990 00:00:00 GMT","pragma":"no-cache","date":"Thu, 16 Jun 2022 02:36:52 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2022-06-16T02:36:52.565Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/beer-bot-309823 [none]
+[debug] [2022-06-16T02:36:52.768Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/beer-bot-309823 200
+[debug] [2022-06-16T02:36:52.768Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/beer-bot-309823 {"projectId":"beer-bot-309823","projectNumber":"49378426459","displayName":"beer-bot","name":"projects/beer-bot-309823","resources":{"hostingSite":"beer-bot-309823","storageBucket":"beer-bot-309823.appspot.com","locationId":"us-east1"},"state":"ACTIVE"}
+[info] 
+[info] === Deploying to 'beer-bot-309823'...
+[info] 
+[info] i  deploying firestore, functions, hosting 
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
+[info] Running command: npm --prefix "$RESOURCE_DIR" run build
