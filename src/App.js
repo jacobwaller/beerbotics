@@ -1,8 +1,8 @@
 // import map from './mapPGM.png';
 import './App.css';
 import BeerEntry from './Beer-Entry';
-import { Button } from '@mui/material';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Button, ListItem } from '@mui/material';
+import { Col, Container, ListGroup, Row } from 'react-bootstrap';
 import React from 'react';
 import ImageMarker from 'react-image-marker';
 import axios from 'axios';
@@ -13,6 +13,10 @@ function App() {
   const [targetYPercent, setYPercent] = React.useState(() => -1);
   const [markers, setMarkers] = React.useState([]);
   const [selected, setSelected] = React.useState(['left']);
+  const [orderQueue, setOrderQueue] = React.useState([{ name: '...' }]);
+
+  let beerOptions = [];
+
   const imageClick = (i) => {
     console.log('Clicking on pixels');
     console.log(i);
@@ -43,6 +47,37 @@ function App() {
     );
   };
 
+  const getOptions = async () => {
+    const options = (
+      await axios.get(
+        'https://us-central1-beer-bot-309823.cloudfunctions.net/getOptions',
+      )
+    ).data;
+
+    beerOptions = options;
+  };
+
+  const getDeliveries = async () => {
+    const optionsPromise = getOptions();
+    const deliveriesPromise = axios.get(
+      'https://us-central1-beer-bot-309823.cloudfunctions.net/getDeliveries',
+    );
+
+    const results = await Promise.all([optionsPromise, deliveriesPromise]);
+    const deliveries = results[1].data;
+    console.log(deliveries);
+    const queueItems = deliveries.map((delivery, idx) => {
+      return {
+        id: idx,
+        x: delivery.x,
+        y: delivery.y,
+        beerType: beerOptions[delivery.beerIndex],
+      };
+    });
+
+    setOrderQueue(queueItems);
+  };
+
   return (
     <div className="App">
       {/* <header className="App-header"> */}
@@ -52,18 +87,26 @@ function App() {
       <p>3. hit submit & wait</p>
       {/* <img src={map} className="App-logo" alt="logo" /> */}
       <Container>
-        <div className="image-marker">
-          <Row className="justify-content-md-center">
-            <Col md={6}>
-              <ImageMarker
-                src={require('./mapPGM.png')}
-                onClick={imageClick}
-                markers={markers}
-                onAddMarker={imageClick}
-              />
-            </Col>
-          </Row>
-        </div>
+        <Row className="justify-content-md-center row-one">
+          <Col md={6}>
+            <ImageMarker
+              src={require('./mapPGM.png')}
+              onClick={imageClick}
+              markers={markers}
+              onAddMarker={imageClick}
+            />
+          </Col>
+          <Col md={4} id="queue">
+            <ListGroup>
+              <ListGroup.Item variant="secondary">Order Queue</ListGroup.Item>
+              {orderQueue.map((item) => {
+                return (
+                  <ListGroup.Item key={item.id}>{item.name}</ListGroup.Item>
+                );
+              })}
+            </ListGroup>
+          </Col>
+        </Row>
         <Row className="justify-content-md-center">
           <Col md={3} onClick={() => colClick('left')}>
             <BeerEntry
