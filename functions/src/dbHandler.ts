@@ -35,6 +35,13 @@ const db = () => {
   return _db;
 };
 
+export const getAllDeliveries = async (): Promise<GetDeliveryResponse[]> => {
+  const document = await db().collection(collectionName).doc(queueName).get();
+  const data = document.data() as { queue: DeliveryDomainModel[] };
+  const a = data.queue;
+  return a;
+};
+
 export const getDeliveryByIndex = async (
   idx: number,
 ): Promise<GetDeliveryResponse> => {

@@ -6,9 +6,11 @@ export type CreateDeliveryRequest = {
   y: number;
   beerIndex: number;
 };
+
 export type DeliveryDomainModel = CreateDeliveryRequest & {
   id: string;
 };
+
 export type GetDeliveryResponse = DeliveryDomainModel;
 
 export const GetDeliveryRequestValidator = Joi.object<CreateDeliveryRequest>({
