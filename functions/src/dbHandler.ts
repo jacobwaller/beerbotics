@@ -51,14 +51,31 @@ export const getDeliveryByIndex = async (
   return a;
 };
 
+// Delete expired deliveries
+export const deleteExpiredDeliveries = async (): Promise<void> => {
+  const document = await db().collection(collectionName).doc(queueName).get();
+  const data = document.data() as { queue: DeliveryDomainModel[] };
+  const a = data.queue;
+  const now = new Date();
+  const nonExpiredDeliveries = a.filter((d) => d.expiration > now.getTime());
+  await db()
+    .collection(collectionName)
+    .doc(queueName)
+    .set({ queue: nonExpiredDeliveries });
+};
+
 export const createDeliveryEntry = async (
   delivery: CreateDeliveryRequest,
 ): Promise<GetDeliveryResponse> => {
   const document = await db().collection(collectionName).doc(queueName).get();
   const data = document.data() as { queue: DeliveryDomainModel[] };
 
+  // Create a new date object one hour in the future
+  const now = new Date();
+  const future = new Date(now.getTime() + 3600000).getTime();
+
   // Create new entry for DB
-  const model = { ...delivery, id: v4() };
+  const model = { ...delivery, id: v4(), expiration: future };
   data.queue.push(model);
 
   await db().collection(collectionName).doc(queueName).set(data);

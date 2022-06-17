@@ -8,11 +8,9 @@ const BeerEntry = (props) => {
   );
 
   if (props.selected) {
-    console.log('one selected');
     return <div className="selected">{internal}</div>;
   } else {
-    console.log('one not');
-    return <div>{internal}</div>;
+    return <div className="unselected">{internal}</div>;
   }
 };
 

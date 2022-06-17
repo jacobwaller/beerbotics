@@ -7,6 +7,7 @@ import {
   getOptionsEntries,
   setDeliveredEntry,
   setOptionsEntries,
+  deleteExpiredDeliveries,
 } from './dbHandler';
 import { IndexValidator, UuidValidator } from './simpleValidators';
 import { GetDeliveryRequestValidator } from './delivery';
@@ -30,6 +31,14 @@ const mdlware = (req: Request, res: Response) => {
     res.status(204).send('');
   }
 };
+
+// scheduled function that runs once per minute to delete expired deliveries
+export const ttl = functions.pubsub
+  .schedule('* * * * *')
+  .timeZone('America/Chicago')
+  .onRun(async () => {
+    await deleteExpiredDeliveries();
+  });
 
 export const getDeliveries = functions.https.onRequest(async (req, res) => {
   mdlware(req, res);

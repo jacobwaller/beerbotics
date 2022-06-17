@@ -28,6 +28,16 @@
   border-radius: 10px;
 }
 
+.unselected {
+  border: 3px solid #ffffff;
+  border-radius: 10px;
+  
+}
+
+
 #submit_button {
-  margin-top: 10px; 
+  /* margin on bottom and top */
+  margin-top: 20px; 
+  margin-bottom: 20px;
+  
 }
